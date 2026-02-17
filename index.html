@@ -51,11 +51,11 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="">Yahia Alqurnawi</a><sup>*</sup>,</span>
+              <a href="https://github.com/Yahialqur">Yahia Alqurnawi</a><sup>*</sup>,</span>
             <span class="author-block">
-              <a href="">Preetom Biswas</a><sup>*</sup>,</span>
+              <a href="https://scholar.google.com/citations?user=yTXdQ28AAAAJ&hl=en&oi=ao">Preetom Biswas</a><sup>*</sup>,</span>
             <span class="author-block">
-              <a href="">Anmol Rao</a><sup>*</sup>,</span>
+              <a href="https://github.com/raoanmol">Anmol Rao</a><sup>*</sup>,</span>
             <span class="author-block">
               <a href="https://tejasanvekar.github.io/">Tejas Anvekar</a>,</span>
             <span class="author-block">
@@ -82,7 +82,7 @@
               <span class="icon"><i class="ai ai-arxiv"></i></span>
               <span>arXiv</span>
             </a>
-            <a href=""
+            <a href="https://github.com/Yahialqur/ViTAB-A"
                class="button is-rounded is-light">
               <span class="icon"><i class="fab fa-github"></i></span>
               <span>Code</span>
@@ -158,7 +158,7 @@
     <div class="columns is-multiline">
       <div class="column is-4">
         <div class="content card-panel">
-          <h3 class="title is-5">Property-Driven Evaluation</h3>
+          <h3 class="title is-5"> Representation-Wise Evaluation</h3>
           <p>
             A comprehensive benchmark for evaluating multimodal LLMs on visual table attribution across text tables, JSON files, and rendered table images.
           </p>
@@ -218,7 +218,8 @@
         </p>
         <p class="content">
           Tables are presented across multiple modalities to assess
-          robustness of attribution under representational and visual variation.
+          robustness of attribution under representational and visual variation. For Image-based representation, 
+          additional visual perturbations (such as varying header color, font-style) are added for generalized evaluation.
         </p>
       </div>
       <div class="column is-6">
@@ -249,94 +250,121 @@
     <h2 class="title is-3 section-title has-text-centered">Evaluation Tasks</h2>
     <div class="content has-text-justified">
       <p>
-        TODO
+        ViTaB-A evaluates multimodal LLMs along two complementary dimensions:
+        answer and attribution correctness, and the alignment of model certainty.
       </p>
     </div>
     <div class="task-stack">
       <div class="task-panel">
         <div class="task-panel-text">
-          <h3 class="title is-4">Task 1: TODO</h3>
+          <h3 class="title is-4">Task 1: QA & Attribution Accuracy</h3>
           <p>
-            TODO
+            Models are evaluated on their ability to generate the correct answer
+            and to precisely identify the supporting table cells (row and column).
+            We measure answer accuracy, row accuracy, column accuracy, and cell accuracy to quantify fine-grained grounding performance
+            across JSON, Markdown, and rendered table inputs.
           </p>
         </div>
-        <figure class="task-panel-figure">
-          <img src="./static/images/" alt="Image Matching task figure">
-          <figcaption class="is-size-6 has-text-grey">Figure 2: TODO.</figcaption>
-        </figure>
+        <!-- <figure class="task-panel-figure ">
+          <div class="metric">
+            <p class="metric-label">Model Families</p>
+            <p class="metric-value">Qwen3-VL  → 2B · 4B · 8B · 32B</p>
+            <p class="metric-value">Gemma3  → 4B · 12B · 27B</p>
+            <p class="metric-value">Molmo2  → 4B · 8B</p>
+            <p class="metric-value">InternVL-3.5  → 4B · 8B · 14B · 38B</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Prompting Techniques</p>
+            <p class="metric-value">Zero-shot · Few-shot · Chain-of-Thought </p>
+          </div>
+        </figure> -->
       </div>
       <div class="task-panel">
         <div class="task-panel-text">
-          <h3 class="title is-4">Task 2: TODO</h3>
+          <h3 class="title is-4">Task 2: Internal & Verbalized Certainty</h3>
           <p>
-            TODO
+            Beyond correctness, we assess whether a model's expressed confidence
+            aligns with its internal certainty measure. We compare verbalized certainty
+            (self-reported confidence scores) with internal token probability-based
+            measures to evaluate calibration and uncertainty alignment in
+            structured attribution settings.
           </p>
         </div>
-        <figure class="task-panel-figure">
-          <img src="./static/images/" alt="Grid Pointing Game task figure">
-          <figcaption class="is-size-6 has-text-grey">Figure 3: TODO</figcaption>
-        </figure>
       </div>
       <div class="task-panel">
         <div class="task-panel-text">
-          <h3 class="title is-4">Task 3: TODO</h3>
+          <h3 class="title is-4">Task 3: Confidence-Accuracy Alignment</h3>
           <p>
-            TODO
+            Beyond correctness, we assess whether a model's confidence (both internal and verbalized) can be a reliable indicator of its true accuracy . We measure alignment through Brier Score for accuracy and confidence. Higher alignment would denote that confidence is an acceptable reflection of the model's performance.
           </p>
         </div>
-        <figure class="task-panel-figure">
-          <img src="./static/images/" alt="Attribute Localization task figure">
-          <figcaption class="is-size-6 has-text-grey">Figure 4: TODO.</figcaption>
-        </figure>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- <section class="section" id="properties">
+<section class="section" id="properties">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title has-text-centered">Properties Measured</h2>
     <div class="content has-text-justified">
       <p>
-        TODO
+        ViTaB-A measures both grounding correctness and uncertainty reliability.
+        We evaluate fine-grained attribution performance at the cell level and
+        assess whether a model’s expressed confidence aligns with its true accuracy.
       </p>
     </div>
     <div class="columns is-multiline">
       <div class="column is-4">
         <div class="content card-panel">
-          <h3 class="title is-5">Robustness</h3>
-          <p>Accuracy drop from Org to ID/OOD perturbations for identity matching and grid pointing.</p>
+          <h3 class="title is-5">Cell Accuracy</h3>
+          <p>Percentage of predictions where both the predicted row and column
+            exactly match the ground-truth supporting cell.</p>
+        </div>
+      </div>
+      
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Row Accuracy</h3>
+          <p>
+            Percentage of instances where the predicted row matches the
+            ground-truth row, isolating record-level localization ability.
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Column Accuracy</h3>
+          <p>
+            Percentage of instances where the predicted column matches the
+            ground-truth column, isolating field-level localization ability.
+          </p>
         </div>
       </div>
       <div class="column is-4">
         <div class="content card-panel">
-          <h3 class="title is-5">Spatial Invariance</h3>
-          <p>Position gap across grid locations for Task 2 highlights layout sensitivity.</p>
+          <h3 class="title is-5">Internal Confidence</h3>
+          <p>
+            Probability-based confidence derived from the model’s token-level
+            output distribution for its predicted answer or citation.
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Verbalized Confidence</h3>
+          <p>
+            Self-reported confidence score of the given attribution response explicitly evaluated by the model.
+          </p>
         </div>
       </div>
       <div class="column is-4">
         <div class="content card-panel">
-          <h3 class="title is-5">Attribution Fidelity</h3>
-          <p>Transfer retention of attribute boxes under perturbations for Task 3.</p>
-        </div>
-      </div>
-      <div class="column is-4">
-        <div class="content card-panel">
-          <h3 class="title is-5">Fairness Gap</h3>
-          <p>Performance differences across subpopulations (e.g., gender) under shifts.</p>
-        </div>
-      </div>
-      <div class="column is-4">
-        <div class="content card-panel">
-          <h3 class="title is-5">Scale Consistency</h3>
-          <p>Trend of performance gains as parameter count increases within a model family.</p>
-        </div>
-      </div>
-      <div class="column is-4">
-        <div class="content card-panel">
-          <h3 class="title is-5">Thinking Superiority</h3>
-          <p>Delta between reasoning-enabled decoding and base decoding.</p>
+          <h3 class="title is-5">Alignment Score</h3>
+          <p>Calibration between confidence and correctness measured via the Brier Score,
+      computed as the mean squared difference between confidence and accuracy.</p>
         </div>
       </div>
     </div>
@@ -349,23 +377,17 @@
       <div class="column is-6">
         <h2 class="title is-3 section-title">Experiments & Setup</h2>
         <p class="content">
-          The evaluation spans three model families: Qwen2.5-VL (3B/7B/72B), Gemma-3 (4B/12B/27B),
-          and InternVL3.5 (8B/14B, with instruct and thinking variants). Experiments use consistent
-          decoding settings (temperature 0.2, top_p 0.95, top_k 32) to compare scale, reasoning mode,
-          and vision-language alignment.
+          The evaluation spans four model families where each model is evaluated on the ViTaB-A benchmark through three prompting paradigms: zero-shot, few-shot, chain-of-thought.
         </p>
       </div>
       <div class="column is-6">
         <div class="callout">
-          <h3 class="title is-5">Perturbation Protocol</h3>
-          <p class="content">
-            Each sample is evaluated on original, ID-augmented, and diffusion-based illusion variants.
-            Metrics capture robustness deltas, spatial invariance gaps, and transfer retention.
-          </p>
+          <h3 class="title is-5">Model Families</h3>
           <div class="callout-tags">
-            <span class="pill pill-outline">ID Augmentations</span>
-            <span class="pill pill-outline">OOD Illusions</span>
-            <span class="pill pill-outline">Transfer Retention</span>
+            <span class="pill pill-outline">Qwen3-VL  → 2B · 4B · 8B · 32B</span>
+            <span class="pill pill-outline">Gemma3  → 4B · 12B · 27B</span>
+            <span class="pill pill-outline">Molmo2  → 4B · 8B</span>
+            <span class="pill pill-outline">InternVL-3.5  → 4B · 8B · 14B · 38B</span>
           </div>
         </div>
       </div>
@@ -379,46 +401,49 @@
       <div class="column is-6">
         <h2 class="title is-3 section-title">Results & Discussion</h2>
         <p class="content">
-          TODO
+          Four consistent themes emerge from our evaluation: QA accuracy remains moderate (≈50–60%) across models and formats, but attribution accuracy drops sharply—near random for JSON and only ~30% for images. Attribution is consistently stronger for image-based tables than textual formats, revealing a modality-dependent grounding gap. Models are substantially better at identifying rows than columns, exposing weaknesses in fine-grained field localization. Finally, confidence—both internal and verbalized—shows no consistent alignment with attribution accuracy, indicating that certainty is an unreliable signal of grounding quality.
+
         </p>
       </div>
       <div class="column is-6">
         <div class="callout">
           <h3 class="title is-5">Implications</h3>
           <p class="content">
-            TODO
+            Current results reveal a structural gap between answer generation and attribution quality, exposing where multimodal LLMs produce correct responses without reliable grounding in table fields. ViTaB-A provides a effective pipeline for evaluating traceability and confidence reliability in structured data settings.
           </p>
           <div class="callout-tags">
-            <span class="pill pill-outline">Robustness Gaps</span>
-            <span class="pill pill-outline">Grounding Failures</span>
-            <span class="pill pill-outline">Scale Tradeoffs</span>
+            <span class="pill pill-outline">QA–Attribution Gap</span>
+            <span class="pill pill-outline">Localization Failures</span>
+            <span class="pill pill-outline">Unreliable Confidence Measures</span>
           </div>
         </div>
       </div>
     </div>
     <div class="results-stack">
       <figure class="figure-card full-figure">
-        <img src="./static/images/figure5.png" alt="Figure 5: Robustness vs gap for Task 3(a)">
+        <img src="./static/images/qa-attr.png" alt="Figure 5: Robustness vs gap for Task 3(a)">
         <figcaption class="is-size-6 has-text-grey">
-          Figure 5: Multidimensional insights for Task 3(a) across attributes, ID vs OOD robustness, and gender gap.
+          Table 1: Model Accuracy in QA vs Attribution (%) Across Prompting Strategies and Open-source Models (4B). Note: <span style="color:ForestGreen;">green</span> indicates the overall best model and
+    <span style="color:red;">red</span> indicates the worst.
         </figcaption>
       </figure>
       <figure class="figure-card full-figure">
-        <img src="./static/images/po-table-1.png" alt="Table 1: Robustness of MLLMs for ID vs OOD across tasks">
+        <img src="./static/images/row-col.png" alt="Table 1: Robustness of MLLMs for ID vs OOD across tasks">
         <figcaption class="is-size-6 has-text-grey">
-          Table 1: Robustness of MLLMs for ID vs OOD across tasks and datasets.
+          Table 2: Row vs Column Accuracy (%) Across Modalities and Prompting Strategies and Open-source Models (for 4B Parameter). Note: <span style="color:ForestGreen;">green</span> indicates the overall best model and
+    <span style="color:red;">red</span> indicates the worst.
         </figcaption>
       </figure>
       <figure class="figure-card full-figure">
-        <img src="./static/images/figure6.png" alt="Figure 6: Multidimensional insights for Task 2 across datasets">
+        <img src="./static/images/conf-acc.png" alt="Figure 6: Multidimensional insights for Task 2 across datasets">
         <figcaption class="is-size-6 has-text-grey">
-          Figure 6: Multidimensional insights for Task 2 across datasets (CELEB Tood, WORD Tid/Tood).
+          Table 3: Confidence-Accuracy correlation for Internal and Verbal; Across Multiple Modalities. Results show no direct correlation.
         </figcaption>
       </figure>
       <figure class="figure-card full-figure">
-        <img src="./static/images/figure7.png" alt="Figure 7: Celeb chain length vs. outcome">
+        <img src="./static/images/radar.png" alt="Figure 7: Celeb chain length vs. outcome">
         <figcaption class="is-size-6 has-text-grey">
-          Figure 7: Celeb chain length vs. outcome. Histogram (log-y) of <think> token length for cases where reasoning fixes vs. fails. Top: Org fixes vs. fails. Bottom: T_ood fixes vs. fails.
+          Figure 2: Radar charts comparing model families across attribution accuracy, QA accuracy, and confidence gap (1 - |verbal - internal|) under different prompting strategies. InternVL-3.5 shows best performance.
         </figcaption>
       </figure>
     </div>
@@ -429,14 +454,14 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title section-title">BibTeX</h2>
-    <pre><code>@misc{anvekar2025perceptualobservatorycharacterizingrobustness,
-      title={The Perceptual Observatory Characterizing Robustness and Grounding in MLLMs}, 
-      author={Tejas Anvekar and Fenil Bardoliya and Pavan K. Turaga and Chitta Baral and Vivek Gupta},
-      year={2025},
-      eprint={2512.15949},
+    <pre><code>@misc{,
+      title={ViTaB-A: Evaluating Multimodal Large Language Models on Visual Table Attribution}, 
+      author={Yahia Alqurnawi and Preetom Biswas and Anmol Rao and Tejas Anvekar and Chitta Baral and Vivek Gupta},
+      year={2026},
+      eprint={},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2512.15949}, 
+      url={https://arxiv.org/abs/}, 
 }
 </code></pre>
   </div>
@@ -448,7 +473,7 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            This page was adopted from the <a href="https://nerfies.github.io">Nerfies</a> project page.
+            This page was adopted from the <a href="https://coral-lab-asu.github.io/PerceptualObservatory/">Perceptual Observatory</a> project page.
             This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
             Creative Commons Attribution-ShareAlike 4.0 International License</a>.
             This means you are free to borrow the source code of this website, we just ask that you link
@@ -458,7 +483,7 @@
       </div>
     </div>
   </div>
-</footer> -->
+</footer>
 
 </body>
 </html>
