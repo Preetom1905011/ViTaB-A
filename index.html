@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ViTaB-A: EVALUATING MULTIMODAL LARGE LANGUAGE MODELS ON VISUAL TABLE ATTRIBUTION">
+  <meta name="keywords" content="Benchmark, Evaluation, MLLM, Vision-Language, Attribution, Uncertainty">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ViTaB-A</title>
+
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Raleway:wght@400;500;600;700&display=swap"
+        rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/lowell.jpeg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero hero-landing">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <!-- <img src="./static/images/lowell.jpeg" alt="Logo" class="publication-logo"> -->
+            ViTaB-A: Evaluating Multimodal Large Language Models on Visual Table Attribution
+          </h1>
+          <!-- <p class="subtitle is-4 hero-subtitle">
+            Characterizing robustness and grounding in multimodal large language models (MLLMs)
+            through perception-first benchmarks and structured perturbations.
+          </p> -->
+
+          <div class="hero-pills">
+            <span class="pill">Attribution</span>
+            <span class="pill">MLLM</span>
+            <span class="pill">Uncertainty</span>
+            <span class="pill">Benchmark Suite</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Yahia Alqurnawi</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="">Preetom Biswas</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="">Anmol Rao</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://tejasanvekar.github.io/">Tejas Anvekar</a>,</span>
+            <span class="author-block">
+              <a href="https://chitta.orissalinks.com/www/">Chitta Baral</a>,</span>
+            <span class="author-block">
+              <a href="https://vgupta123.github.io/">Vivek Gupta</a>
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block asu-affiliation">Arizona State University</span>
+            <span class="eql-cntrb"><small><br><sup>*</sup>Equal contribution.</small></span>
+          </div>
+          <div class="wacv-line">ICLR 2026 (Under Review)</div>
+
+          <div class="hero-cta">
+            <a href="./static/images/Benchmarking_and_Evaluating_Visual_Table_Attribution_Beyond_F_measure.pdf"
+               class="button is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Paper</span>
+            </a>
+            <a href=""
+               class="button is-rounded is-light">
+              <span class="icon"><i class="ai ai-arxiv"></i></span>
+              <span>arXiv</span>
+            </a>
+            <a href=""
+               class="button is-rounded is-light">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+            <!-- <a href=""
+               class="button is-rounded is-light">
+              <span class="icon">🤗</span>
+              <span>Dataset (Coming Soon)</span>
+            </a> -->
+          </div>
+
+          <div class="hero-highlight">
+            <div class="highlight-card">
+              <p class="highlight-title">What it explores</p>
+              
+              <p class="highlight-text">
+                How accurately do mLLMs identify table cells that support a given answer?
+              </p>
+              <br/>
+              
+              <p class="highlight-text">
+                Does a model's confidence score reliably reflect the correctness of its attribution?
+              </p>
+            </div>
+            <div class="highlight-card">
+              <p class="highlight-title">What it delivers</p>
+              <p class="highlight-text">
+                A unified benchmark for structured data attribution that evaluates question answering,
+                fine-grained row and column localization, and confidence calibration across text, JSON,
+                and image-based tables—providing a clear measure of grounding and traceability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 section-title">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multimodal Large Language Models (mLLMs) are often used to answer questions in structured data such as tables in Markdown, JSON, and images. While these models can often give correct answers, users also need to know where those answers come from. In this work, we study structured data attribution/citation, which is the ability of the models to point to the specific rows and columns that support an answer. We evaluate several mLLMs across different table formats and prompting strategies. Our results show a clear gap between question answering and evidence attribution. Although question answering accuracy remains moderate, attribution accuracy is much lower, near random for JSON inputs, across all models. We also find that models are more reliable at citing rows than columns, and struggle more with textual formats than images. Finally, we observe notable differences across model families. Overall, our findings show that current mLLMs are unreliable at providing fine-grained, trustworthy attribution for structured data, which limits their usage in applications requiring transparency and traceability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="introduction">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 section-title has-text-centered">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multimodal Large Language Models (mLLMs) can answer questions over structured data such as tables and JSON with reasonable accuracy, but they often fail to identify the exact rows and columns that support their answers. This gap between answer correctness and evidence localization limits their reliability in settings that require traceability. To address this, we introduce <b>ViTaB-A</b>, a benchmark designed to evaluate structured data attribution across text, JSON, and rendered table images. ViTaB-A systematically measures whether models can not only answer correctly, but also precisely ground their responses in the underlying table fields.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-contrast" id="contributions">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Major Contributions</h2>
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Property-Driven Evaluation</h3>
+          <p>
+            A comprehensive benchmark for evaluating multimodal LLMs on visual table attribution across text tables, JSON files, and rendered table images.
+          </p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Unified Tasks + Metrics</h3>
+          <p>
+            The first large-scale evaluation of open-source mLLMs that jointly measures table question
+            answering, fine-grained row/column attribution, and confidence alignment.
+          </p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Spatial Grounding Analysis</h3>
+          <p>
+            Empirical analysis revealing systematic gaps between answer accuracy and evidence
+            localization, highlighting weaknesses in spatial grounding and traceability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="observatory">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-centered">
+        <h2 class="title is-3 section-title">ViTaB-A Pipeline</h2>
+        <p class="content">
+          ViTaB-A provides a structured evaluation setup consisting of question–answer pairs, table representations (JSON, Markdown, or rendered images), and ground-truth row and column citations. These inputs are evaluated under multiple prompting paradigms—including zero-shot, few-shot, and chain-of-thought—to systematically assess attribution quality. Performance is measured not only through answer and citation accuracy, but also through model certainty and calibration metrics, enabling a comprehensive analysis of grounding reliability.
+        </p>
+        <figure class="overview-figure">
+          <img src="./static/images/flow_diagram.png"
+               alt="Framework overview of ViTaB-A Dataset Generation and Evaluation Pipeline">
+          <figcaption class="is-size-6 has-text-grey">
+            Framework overview of ViTaB-A Dataset Generation and Evaluation Pipeline.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-contrast" id="data">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-6">
+        <h2 class="title is-3 section-title">Benchmark Details</h2>
+        <p class="content">
+          ViTaB-A evaluates structured data attribution using curated question–answer pairs
+          grounded in tabular data with explicit row and column citations. Each instance
+          includes a table and its corresponding ground-truth supporting cells.
+        </p>
+        <p class="content">
+          Tables are presented across multiple modalities to assess
+          robustness of attribution under representational and visual variation.
+        </p>
+      </div>
+      <div class="column is-6">
+          <div class="metric">
+            <p class="metric-label">Table Formats</p>
+            <p class="metric-value">JSON · Markdown · Rendered Images</p>
+          </div>
+           <br/>
+          <div class="metric">
+            <p class="metric-label">Image Perturbation</p>
+            <p class="metric-value">Red · Green · Blue · Arial · Times New Roman</p>
+          </div>
+          <!-- <div class="metric">
+            <p class="metric-label">Variants</p>
+            <p class="metric-value">15 ID + 15 OOD</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Total</p>
+            <p class="metric-value">62K images</p>
+          </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tasks">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Evaluation Tasks</h2>
+    <div class="content has-text-justified">
+      <p>
+        TODO
+      </p>
+    </div>
+    <div class="task-stack">
+      <div class="task-panel">
+        <div class="task-panel-text">
+          <h3 class="title is-4">Task 1: TODO</h3>
+          <p>
+            TODO
+          </p>
+        </div>
+        <figure class="task-panel-figure">
+          <img src="./static/images/" alt="Image Matching task figure">
+          <figcaption class="is-size-6 has-text-grey">Figure 2: TODO.</figcaption>
+        </figure>
+      </div>
+      <div class="task-panel">
+        <div class="task-panel-text">
+          <h3 class="title is-4">Task 2: TODO</h3>
+          <p>
+            TODO
+          </p>
+        </div>
+        <figure class="task-panel-figure">
+          <img src="./static/images/" alt="Grid Pointing Game task figure">
+          <figcaption class="is-size-6 has-text-grey">Figure 3: TODO</figcaption>
+        </figure>
+      </div>
+      <div class="task-panel">
+        <div class="task-panel-text">
+          <h3 class="title is-4">Task 3: TODO</h3>
+          <p>
+            TODO
+          </p>
+        </div>
+        <figure class="task-panel-figure">
+          <img src="./static/images/" alt="Attribute Localization task figure">
+          <figcaption class="is-size-6 has-text-grey">Figure 4: TODO.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="properties">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Properties Measured</h2>
+    <div class="content has-text-justified">
+      <p>
+        TODO
+      </p>
+    </div>
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Robustness</h3>
+          <p>Accuracy drop from Org to ID/OOD perturbations for identity matching and grid pointing.</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Spatial Invariance</h3>
+          <p>Position gap across grid locations for Task 2 highlights layout sensitivity.</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Attribution Fidelity</h3>
+          <p>Transfer retention of attribute boxes under perturbations for Task 3.</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Fairness Gap</h3>
+          <p>Performance differences across subpopulations (e.g., gender) under shifts.</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Scale Consistency</h3>
+          <p>Trend of performance gains as parameter count increases within a model family.</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="content card-panel">
+          <h3 class="title is-5">Thinking Superiority</h3>
+          <p>Delta between reasoning-enabled decoding and base decoding.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-contrast" id="experiments">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-6">
+        <h2 class="title is-3 section-title">Experiments & Setup</h2>
+        <p class="content">
+          The evaluation spans three model families: Qwen2.5-VL (3B/7B/72B), Gemma-3 (4B/12B/27B),
+          and InternVL3.5 (8B/14B, with instruct and thinking variants). Experiments use consistent
+          decoding settings (temperature 0.2, top_p 0.95, top_k 32) to compare scale, reasoning mode,
+          and vision-language alignment.
+        </p>
+      </div>
+      <div class="column is-6">
+        <div class="callout">
+          <h3 class="title is-5">Perturbation Protocol</h3>
+          <p class="content">
+            Each sample is evaluated on original, ID-augmented, and diffusion-based illusion variants.
+            Metrics capture robustness deltas, spatial invariance gaps, and transfer retention.
+          </p>
+          <div class="callout-tags">
+            <span class="pill pill-outline">ID Augmentations</span>
+            <span class="pill pill-outline">OOD Illusions</span>
+            <span class="pill pill-outline">Transfer Retention</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-6">
+        <h2 class="title is-3 section-title">Results & Discussion</h2>
+        <p class="content">
+          TODO
+        </p>
+      </div>
+      <div class="column is-6">
+        <div class="callout">
+          <h3 class="title is-5">Implications</h3>
+          <p class="content">
+            TODO
+          </p>
+          <div class="callout-tags">
+            <span class="pill pill-outline">Robustness Gaps</span>
+            <span class="pill pill-outline">Grounding Failures</span>
+            <span class="pill pill-outline">Scale Tradeoffs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="results-stack">
+      <figure class="figure-card full-figure">
+        <img src="./static/images/figure5.png" alt="Figure 5: Robustness vs gap for Task 3(a)">
+        <figcaption class="is-size-6 has-text-grey">
+          Figure 5: Multidimensional insights for Task 3(a) across attributes, ID vs OOD robustness, and gender gap.
+        </figcaption>
+      </figure>
+      <figure class="figure-card full-figure">
+        <img src="./static/images/po-table-1.png" alt="Table 1: Robustness of MLLMs for ID vs OOD across tasks">
+        <figcaption class="is-size-6 has-text-grey">
+          Table 1: Robustness of MLLMs for ID vs OOD across tasks and datasets.
+        </figcaption>
+      </figure>
+      <figure class="figure-card full-figure">
+        <img src="./static/images/figure6.png" alt="Figure 6: Multidimensional insights for Task 2 across datasets">
+        <figcaption class="is-size-6 has-text-grey">
+          Figure 6: Multidimensional insights for Task 2 across datasets (CELEB Tood, WORD Tid/Tood).
+        </figcaption>
+      </figure>
+      <figure class="figure-card full-figure">
+        <img src="./static/images/figure7.png" alt="Figure 7: Celeb chain length vs. outcome">
+        <figcaption class="is-size-6 has-text-grey">
+          Figure 7: Celeb chain length vs. outcome. Histogram (log-y) of <think> token length for cases where reasoning fixes vs. fails. Top: Org fixes vs. fails. Bottom: T_ood fixes vs. fails.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title section-title">BibTeX</h2>
+    <pre><code>@misc{anvekar2025perceptualobservatorycharacterizingrobustness,
+      title={The Perceptual Observatory Characterizing Robustness and Grounding in MLLMs}, 
+      author={Tejas Anvekar and Fenil Bardoliya and Pavan K. Turaga and Chitta Baral and Vivek Gupta},
+      year={2025},
+      eprint={2512.15949},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2512.15949}, 
+}
+</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was adopted from the <a href="https://nerfies.github.io">Nerfies</a> project page.
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+            Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            This means you are free to borrow the source code of this website, we just ask that you link
+            back to this page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
